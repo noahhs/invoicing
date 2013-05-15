@@ -1,0 +1,86 @@
+%h1 Junior Developer Exercises
+
+%p
+  In this exercise you will be writing a simple class to generate CSV reports
+  for the business team.
+
+%h2 Overview
+
+%p
+  This is a simple billing reporting app. There are two models:
+  %strong Client
+  and
+  %strong Invoice.
+  See the links at the bottom of this page to experiment with your reports as
+  you write them. Don't worry if you aren't able to complete all of these
+  exercises before the interview. We'll work with you on what you do have when
+  you show up. We want to see you coding in action so if you finish all of the
+  exercises in this exercise, we have a few more built in that we can work with
+  you on.
+
+%h2 Testing
+
+%p
+  You can run individual specs with
+  %em rspec spec/reports/name_of_the_report_spec.rb.
+  You can automatically run individual specs with
+  %em guard start.
+
+%h2 Getting Help
+
+%p
+  If you are working on this problem in advance of the interview and you have
+  any questions, do not hestiate to drop us a line at
+  = mail_to "developers@crystalcommerce.com"
+
+%h2 Exercise 1
+
+%p
+  The business unit wants a CSV report of all invoices ever assigned to
+  our clients, ordered by date.
+  
+%p
+  Edit
+  %em app/reports/reports/all_invoices.rb
+  to generate that report. See
+  %em spec/reports/all_invoices_spec.rb
+  for the tests we will run on your code.
+
+%h2 Exercise 2
+
+%p
+  The business unit wants a CSV report of revenue from invoices,
+  grouped by month and company.
+%p
+  Edit
+  %em app/reports/reports/revenue_per_month.rb
+  to generate that report. See
+  %em spec/reports/revenue_per_month_spec.rb
+  for the tests we will run on your code.
+
+%h2 Exercise 3
+
+%p
+  The business unit wants a CSV report of deadbeats. Deadbeats are
+  clients who have not paid us yet. The report should contain 
+  grouped by month and company. The report should contain clients and their
+  debts, ordered by amount owed, excluding clients who owe us nothing.
+
+%h2 Extra Exercises
+
+%p
+  We have a few extra reports 
+  
+%p
+  Edit
+  %em app/reports/reports/deadbeats.rb
+  to generate that report. See
+  %em spec/reports/deadbeats.rb
+  for the tests we will run on your code.
+
+%h1 Report Previews
+
+%ol
+  %li= link_to "All Invoices", all_invoices_reports_path
+  %li= link_to "Revenue Per Month", revenue_per_month_reports_path
+  %li= link_to "Deadbeats", deadbeats_reports_path

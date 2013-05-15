@@ -1,0 +1,11 @@
+%table{:border => 1}
+  %thead
+    %tr
+      - @report.header_row.each do |col|
+        %th= col
+  %tbody
+    - @report.rows.each do |row|
+      %tr
+        - row.each do |col|
+          %td= col
+
