@@ -14,6 +14,25 @@ module Reports
     def generate(csv)
       csv << header_row
       # ...
+
+      records = Invoice.find_by_sql(%{
+        SELECT invoices.date, invoices.amount_cents, clients.name
+        FROM invoices JOIN clients on clients.id = invoices.client_id
+        WHERE invoices.paid = 't'
+        })
+
+      records.map! do |record|
+        attributes = record.attributes
+        attributes[:month] = record.date.month
+        attributes[:year] = record.date.year
+        attributes
+      end
+
+      records.group_by { |rec| "#{rec[:year]}_#{rec[:month]}_#{rec["name"]}"
+      }.sort.each do |_, group|
+        sum = group.inject(0) { |result, record| result + record["amount_cents"] }
+        csv << [group.first["name"], "#{group.first[:month]}/#{group.first[:year]}", Money.new(sum)]
+      end
     end
 
   private

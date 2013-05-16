@@ -8,6 +8,18 @@ module Reports
     def generate(csv)
       csv << header_row
       # ...
+      records = Invoice.find_by_sql(%{
+        SELECT invoices.amount_cents, clients.name
+        FROM invoices JOIN clients on clients.id = invoices.client_id
+        WHERE invoices.paid = 'f'
+        })
+
+      records.map! { |record| attributes = record.attributes }
+      
+      records.group_by { |rec| rec["name"] }.inject([]) do |result, (_, group)|
+        sum = group.inject(0) { |result, record| result + record["amount_cents"] }
+        result << [group.first["name"], Money.new(sum)]
+      end.sort_by { |row| -row[1]}.each { |row| csv << row}
     end
 
   private
